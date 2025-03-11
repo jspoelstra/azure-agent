@@ -1,0 +1,9 @@
+# Coding
+black==24.*
+ipykernel
+
+# Azure
+azure-ai-projects
+azure-identity
+openai
+python-dotenv
