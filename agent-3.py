@@ -6,22 +6,10 @@
 """
 DESCRIPTION:
     This sample demonstrates how to use agent operations with toolset from
-    the Azure Agents service using a synchronous client.
+    methods of a class.
 
 USAGE:
     python agent-3.py
-
-    Before running the sample:
-    - python -m venv venv
-    - source venv/bin/activate  # for Linux/macOS
-    - .\venv\Scripts\activate  # for Windows
-    - pip install -r requirements.txt
-
-    Set these environment variables with your own values:
-    1) PROJECT_CONNECTION_STRING - The project connection string, as found in the overview page of your
-       Azure AI Foundry project.
-    2) MODEL_DEPLOYMENT_NAME - The deployment name of the AI model, as found under the "Name" column in 
-       the "Models + endpoints" tab in your Azure AI Foundry project.
 """
 
 import os
@@ -43,7 +31,7 @@ load_dotenv()
 class Agent007:
     def __init__(self):
         # Initialize project client with connection string from environment variable
-        self.agent_name = "agent-2"
+        self.agent_name = "agent-3"
         self.instructions = """
         You are a helpful assistant.
         Uploaded files contain useful information about the Fluid Processing plant.

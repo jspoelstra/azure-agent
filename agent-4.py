@@ -5,11 +5,11 @@
 
 """
 DESCRIPTION:
-    This sample demonstrates how to use agent operations with toolset from
-    the Azure Agents service using a synchronous client.
+    This sample demonstrates how to use agent operations with toolset from a class that
+    contains user-defined functions using Pandas and NumPy.
 
 USAGE:
-    python agent-2.py
+    python agent-4.py
 """
 
 import os
@@ -21,7 +21,7 @@ from azure.ai.projects.models import (
     CodeInterpreterTool,
     FileSearchTool,
 )
-from functions2 import user_functions
+from functions4 import Functions4
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
@@ -31,7 +31,7 @@ load_dotenv()
 class Agent007:
     def __init__(self):
         # Initialize project client with connection string from environment variable
-        self.agent_name = "agent-2"
+        self.agent_name = "agent-4"
         self.instructions = """
         You are a helpful assistant.
         Uploaded files contain useful information about the Fluid Processing plant.
@@ -42,6 +42,7 @@ class Agent007:
             conn_str=os.getenv("PROJECT_CONNECTION_STRING"),
         )
         self.create_file_search_tool()
+        self.general_functions = Functions4()
         self.create_agent()
         # Default state is no active conversation
         self.thread = None
@@ -56,11 +57,11 @@ class Agent007:
     def create_agent(self):
         # Initialize agent toolset with user functions and code interpreter
         # [START create_agent_toolset]
-        functions = FunctionTool(user_functions)
+        gen_functions = FunctionTool(self.general_functions.user_functions)
         code_interpreter = CodeInterpreterTool()
 
         toolset = ToolSet()
-        toolset.add(functions)
+        toolset.add(gen_functions)
         toolset.add(code_interpreter)
         toolset.add(self.file_search_tool)
 
