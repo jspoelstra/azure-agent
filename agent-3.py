@@ -43,7 +43,7 @@ load_dotenv()
 class Agent007:
     def __init__(self):
         # Initialize project client with connection string from environment variable
-        self.agent_name = "agent-2"
+        self.agent_name = "agent-3"
         self.instructions = """
         You are a helpful assistant.
         Uploaded files contain useful information about the Fluid Processing plant.
