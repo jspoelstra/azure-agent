@@ -52,6 +52,16 @@ async def test_mcp_connection():
                     )
                     end_time = time.time()
                     print(f"Success! Result: {result} (took {end_time - start_time:.2f} seconds)")
+                                        
+                    # Test with incorrect arguments
+                    print("\nTest 1b: With incorrect type arguments")
+                    start_time = time.time()
+                    result = await asyncio.wait_for(
+                        multiply_tool.ainvoke({"a":3.0, "b":"4.0"}),
+                        timeout=10.0
+                    )
+                    end_time = time.time()
+                    print(f"Success! Result: {result} (took {end_time - start_time:.2f} seconds)")
                     
                     # Test without timeout, but with different values
                     print("\nTest 2: Without explicit timeout")
