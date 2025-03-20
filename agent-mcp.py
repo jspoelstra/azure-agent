@@ -43,8 +43,6 @@ class MCPToolsAdapter:
         print(f"MCP client returned {len(self.lc_tools)} tools")
         # Use a dict instead of a set to ensure we don't have name conflicts
         self.functions: Dict[str, Callable] = {}
-        # Create a shared event loop for all MCP tool calls
-        self.loop = asyncio.new_event_loop()
         self._create_function_wrappers()
     
     def _create_function_wrappers(self):
@@ -152,33 +150,32 @@ class MCPToolsAdapter:
                     print(f"Calling MCP tool: {t_name} with args: {kwargs}")
                     
                     try:
-                        # Use the shared event loop
-                        if self.loop.is_closed():
-                            self.loop = asyncio.new_event_loop()
-                            
-                        # Use ainvoke directly with a configurable timeout
-                        async def call_with_timeout():
-                            print(f"Starting async {t_name} call with params: {kwargs}")
-                            # Increase timeout to 30 seconds for better reliability
-                            result = await asyncio.wait_for(
-                                t_ref.ainvoke(kwargs),
-                                timeout=30.0  # 30 second timeout for better reliability
-                            )
-                            print(f"Async {t_name} call completed with result: {result}")
+                        # Pass parameters directly without type conversion
+                        # This preserves the original parameter types as provided by the LLM
+                        print(f"Using parameters for {t_name}: {kwargs}")
+                        
+                        # Super simple approach - directly use asyncio.run() for each call
+                        async def simple_invoke():
+                            start_time = time.time()
+                            print(f"Starting direct async call to {t_name}...")
+                            # Pass parameters directly without modification
+                            result = await t_ref.ainvoke(kwargs)
+                            end_time = time.time()
+                            print(f"{t_name} call completed successfully in {end_time - start_time:.2f} seconds with result: {result}")
                             return result
                         
-                        print(f"Executing MCP {t_name} tool with timeout...")
-                        # Use existing loop rather than creating a new one each time
-                        result = self.loop.run_until_complete(call_with_timeout())
-                        print(f"{t_name} result: {result}")
+                        # Use asyncio.run() with shorter timeout
+                        print(f"Invoking {t_name} using direct asyncio.run() approach")
+                        result = asyncio.run(asyncio.wait_for(simple_invoke(), timeout=5.0))
                         
                         # Return result as JSON string for Azure Agent compatibility
                         if isinstance(result, dict):
                             return json.dumps(result)
                         else:
                             return json.dumps({"result": result})
+                            
                     except asyncio.TimeoutError:
-                        error_msg = f"Error: MCP {t_name} tool timed out after 30 seconds"
+                        error_msg = f"Error: MCP {t_name} tool timed out after 5 seconds"
                         print(error_msg)
                         return json.dumps({"error": error_msg, "result": f"Calculation timed out. Please check if the MCP server is running and accessible."})
                     except Exception as e:
@@ -188,6 +185,7 @@ class MCPToolsAdapter:
                 
                 # Set function signature to match parameters
                 import inspect
+                import time  # Add time module for timing measurements
                 from inspect import Parameter, Signature
                 
                 # Create parameters for the function signature
