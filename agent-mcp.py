@@ -121,14 +121,7 @@ class MCPToolsAdapter:
                 
                 # Add detailed debug of tool schema for troubleshooting
                 print(f"Final parameter info for {tool_name}: {param_info}")
-                
-                # For commonly known tools, provide fallback params with descriptions
-                if not param_info and tool_name in ['add', 'multiply', 'divide']:
-                    param_info = {
-                        'a': {'type': 'number', 'description': 'First number to operate on'},
-                        'b': {'type': 'number', 'description': 'Second number to operate on'}
-                    }
-                
+                                
             except Exception as e:
                 print(f"Error extracting parameters for {tool_name}: {e}")
             
