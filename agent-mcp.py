@@ -283,7 +283,7 @@ class Agent007:
         self.general_functions = Functions4()
         
         # Initialize MCP client with service URLs from environment variables
-        math_url = os.getenv("MCP_MATH_URL", "http://20.7.111.111:5001/sse")
+        math_url = os.getenv("MCP_MATH_URL", "http://localhost:5001/sse")
         
         # Define servers dictionary with available services
         mcp_servers = {}
