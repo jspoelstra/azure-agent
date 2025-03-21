@@ -89,9 +89,9 @@ This sample shows integration with pandas and numpy for data processing.
 ```bash
 python agent-mcp.py
 ```
-This sample demonstrates integration with LangChain's Machine Comprehension Protocol tools.
+This sample demonstrates integration with Model Context Protocol tools using the LangChain tools client.
 
-**Note:** To run the MCP example, you must have access to a running MCP server and set the `MCP_MATH_URL` environment variable.
+**Note:** To run the MCP example, you must have access to a running MCP server and set the `MCP_SERVER_URL` environment variable.
 
 ### Testing MCP Connection
 
