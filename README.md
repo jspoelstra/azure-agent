@@ -50,7 +50,7 @@ MCP_SERVER_URL=http://your-mcp-server:5001/sse
 Where:
 - `PROJECT_CONNECTION_STRING` - The connection string from your Azure AI Foundry project (found on the overview page)
 - `MODEL_DEPLOYMENT_NAME` - The deployment name of the AI model (found under the "Models + endpoints" tab)
-- `MCP_SERVER_URL` - The URL to your MCP math service (only needed for agent-mcp.py)
+- `MCP_SERVER_URL` - The URL to your MCP server (only needed for agent-mcp.py)
 
 ## Running the Samples
 
