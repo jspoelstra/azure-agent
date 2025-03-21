@@ -11,3 +11,6 @@ python-dotenv
 # Data
 pandas
 numpy
+
+# LangChain
+langchain-mcp-adapters
