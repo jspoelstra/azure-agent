@@ -14,7 +14,7 @@ This repository contains examples of building AI agents using the Azure Agents s
 
 ### Prerequisites
 
-- Python 3.8+
+- Python 3.10+
 - Azure AI Foundry account and project
 - For MCP demos: Access to a running MCP server
 
