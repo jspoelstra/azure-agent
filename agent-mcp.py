@@ -77,7 +77,7 @@ class Agent007:
             
             # Create adapter for MCP tools and get functions
             print("Creating MCP tools adapter...")
-            mcp_server_url = os.getenv("MCP_MATH_URL", "http://localhost:5001/sse")
+            mcp_server_url = os.getenv("MCP_SERVER_URL", "http://localhost:5001/sse")
             mcp_adapter = MCPToolsAdapter([mcp_server_url])
             
             # Add MCP functions to the combined set

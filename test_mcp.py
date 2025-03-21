@@ -2,6 +2,7 @@
 """
 Simple test script to diagnose MCP server connectivity issues.
 This bypasses the Azure Agent and directly tests the MCP connection.
+Assumes that the MCP server is running and accessible and provides a "multiply" tool.
 """
 
 import os
@@ -21,7 +22,7 @@ async def test_mcp_connection():
     """Test connecting to the MCP server and invoking a simple function."""
     
     # Get MCP server URL from environment or use default
-    math_url = os.getenv("MCP_MATH_URL", "http://20.7.111.111:5001/sse")
+    math_url = os.getenv("MCP_SERVER_URL", "http://localhost:5001/sse")
     print(f"Testing connection to MCP server at: {math_url}")
     
     # Configure the MCP client
